@@ -50,7 +50,8 @@ test = [
 fbtseg = "fbtseg.cli:main"
 
 [project.urls]
-Source = "https://github.com/rafss/fbtseg"
+Homepage = "https://github.com/RobertoASantos/FBT-Segmentation"
+Source = "https://github.com/RobertoASantos/FBT-Segmentation"
 
 [tool.setuptools.packages.find]
 include = ["fbtseg*"]
