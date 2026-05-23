@@ -43,15 +43,24 @@ from fbtseg.datasets import get_spec
 warnings.simplefilter("ignore", ConvergenceWarning)
 
 
-def encode_categoricals(X, categorical_columns):
-    """Encode categorical columns to integers."""
+def encode_categoricals(X, categorical_columns, encoders=None, fit=True):
+    """Encode categorical columns to integers.
+
+    If fit=True, learn encoders from X.
+    If fit=False, use provided encoders.
+    """
     X_copy = X.copy()
-    encoders = {}
-    for col in categorical_columns:
-        if col in X_copy.columns:
-            le = LabelEncoder()
-            X_copy[col] = le.fit_transform(X_copy[col].astype(str))
-            encoders[col] = le
+    if fit:
+        encoders = {}
+        for col in categorical_columns:
+            if col in X_copy.columns:
+                le = LabelEncoder()
+                X_copy[col] = le.fit_transform(X_copy[col].astype(str))
+                encoders[col] = le
+    else:
+        for col in categorical_columns:
+            if col in X_copy.columns and col in encoders:
+                X_copy[col] = encoders[col].transform(X_copy[col].astype(str))
     return X_copy, encoders
 
 
@@ -110,7 +119,7 @@ def benchmark_dataset(dataset_name: str, n_splits: int = 5, smoke: bool = False)
 
     # Prepare categorical encoding for baselines
     cat_cols = spec.categorical_columns
-    X_encoded, encoders = encode_categoricals(X, cat_cols)
+    X_encoded, encoders = encode_categoricals(X, cat_cols, fit=True)
 
     # Storage for fold results
     results = {
@@ -130,7 +139,10 @@ def benchmark_dataset(dataset_name: str, n_splits: int = 5, smoke: bool = False)
 
         X_tr, X_te = X.iloc[train_idx], X.iloc[test_idx]
         y_tr, y_te = y.iloc[train_idx], y.iloc[test_idx]
-        X_tr_enc, X_te_enc = X_encoded.iloc[train_idx], X_encoded.iloc[test_idx]
+
+        # Encode train/test for baselines
+        X_tr_enc, fold_encoders = encode_categoricals(X_tr, cat_cols, fit=True)
+        X_te_enc, _ = encode_categoricals(X_te, cat_cols, encoders=fold_encoders, fit=False)
 
         # --- fbtseg ---
         try:

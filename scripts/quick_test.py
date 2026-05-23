@@ -37,11 +37,13 @@ print(model_fbtseg.plot_model_tree())
 # --- LogisticRegression (baseline) ---
 print("\n[LogisticRegression]", end=" ", flush=True)
 X_enc = Xtr.copy()
+Xte_enc = Xte.copy()
+encoders = {}
 for col in spec.categorical_columns:
     le = LabelEncoder()
     X_enc[col] = le.fit_transform(X_enc[col].astype(str))
-    Xte_enc = Xte.copy()
     Xte_enc[col] = le.transform(Xte_enc[col].astype(str))
+    encoders[col] = le
 
 model_lr = LogisticRegression(penalty=None, max_iter=1000, random_state=42)
 model_lr.fit(X_enc, ytr)
