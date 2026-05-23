@@ -1,0 +1,2 @@
+model,auc_rank,roc_auc,average_precision,accuracy
+RiskSeg,1.0,0.8863932130167804,0.9609410820566288,0.7908333333333334

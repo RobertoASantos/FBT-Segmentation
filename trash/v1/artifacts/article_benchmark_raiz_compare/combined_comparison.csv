@@ -1,0 +1,6 @@
+dataset,article_logistic_error_pct,article_fbtseg_error_pct,ours_logistic_error_pct,riskseg_current_error_pct,riskseg_raiz_error_pct,delta_raiz_vs_article_fbtseg_pp,delta_raiz_vs_current_pp
+adult,14.9,14.96,14.8745,14.9932,14.9891,0.0291,-0.0041
+chess,2.6,1.02,3.5983,3.5985,3.5671,2.5471,-0.0313
+german,25.7,26.3,25.9973,25.3979,25.8987,-0.4013,0.5008
+magic,20.98,15.4,20.8991,16.2671,16.3302,0.9302,0.0631
+spambase,8.69,8.19,11.1065,9.5415,9.5198,1.3298,-0.0218

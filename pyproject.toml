@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fbtseg"
+version = "0.2.0"
+description = "Find Best Tree Segmentation — estimador de segmentação binária fiel ao Capítulo 4 da tese (Santos, UFPE 2010)"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    {name = "Roberto Angelo Fernandes Santos", email = "rafss@hotmail.com"},
+]
+license = {text = "MIT"}
+keywords = [
+    "machine-learning",
+    "segmentation",
+    "model-tree",
+    "binary-classification",
+    "risk-modeling",
+    "credit-scoring",
+    "fbtseg",
+    "riskseg",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "requests",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
+
+[project.scripts]
+fbtseg = "fbtseg.cli:main"
+
+[project.urls]
+Source = "https://github.com/rafss/fbtseg"
+
+[tool.setuptools.packages.find]
+include = ["fbtseg*"]
+exclude = ["trash*", "trash.*", "tests*", "scripts*", "docs*", "artifacts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-p no:cacheprovider --ignore=trash"

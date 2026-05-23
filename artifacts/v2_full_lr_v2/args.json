@@ -1,0 +1,16 @@
+{
+  "datasets": [
+    "adult",
+    "german",
+    "magic",
+    "spambase",
+    "chess"
+  ],
+  "models": [
+    "LR",
+    "V2"
+  ],
+  "n_splits": 3,
+  "output_dir": "artifacts/v2_full_lr_v2",
+  "max_rows": null
+}

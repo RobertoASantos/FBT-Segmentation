@@ -1,0 +1,2 @@
+model,error_rate,roc_auc,fit_seconds,error_rank
+PaperLogisticRegression,0.14902165826637057,0.8945642815953748,0.1530276679992676,1.0

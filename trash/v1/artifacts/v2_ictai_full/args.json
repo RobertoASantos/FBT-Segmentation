@@ -1,0 +1,15 @@
+{
+  "datasets": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "sizes": [
+    1000,
+    3000
+  ],
+  "n_replications": 5,
+  "output_dir": "artifacts/v2_ictai_full",
+  "seed": 0
+}

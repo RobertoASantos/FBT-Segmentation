@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.tox/
+htmlcov/
+
+# Virtualenv
+.venv/
+venv/
+env/
+
+# Build
+build/
+dist/
+*.egg-info/
+*.egg
+wheels/
+pip-wheel-metadata/
+
+# Caches de download (datasets vem do UCI sob demanda)
+artifacts/article_datasets/
+artifacts/openml/
+artifacts/sklearn_data/
+
+# Artefatos pesados de runs antigas
+artifacts/**/*.tsv.gz
+artifacts/**/*.arff
+artifacts/**/openml_cache/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Claude Code local settings (não compartilhar)
+.claude/
+
+# CLI runs / modelos serializados gerados sob demanda
+runs/
+*.pkl
+*.log
