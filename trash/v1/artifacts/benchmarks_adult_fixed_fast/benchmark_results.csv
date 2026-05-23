@@ -1,2 +1,0 @@
-dataset,model,source_rows,rows,features,train_rows,test_rows,positive_rate_train,positive_rate_test,roc_auc,average_precision,accuracy,fit_seconds,score_seconds
-adult,RiskSeg,48842,12000,14,9600,2400,0.7607291666666667,0.7608333333333334,0.8863932130167804,0.9609410820566288,0.7908333333333334,92.10235689999536,5.322510800004238

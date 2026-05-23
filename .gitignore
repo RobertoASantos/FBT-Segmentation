@@ -55,3 +55,12 @@ desktop.ini
 runs/
 *.pkl
 *.log
+
+# Implementação legada V1 — preservada localmente, fora do repo público
+trash/
+
+# Artefatos de runs e benchmarks — gerados localmente pelos scripts
+artifacts/
+
+# Tese completa em .docx — apenas os PDFs dos artigos são publicados
+docs/reference/*.docx

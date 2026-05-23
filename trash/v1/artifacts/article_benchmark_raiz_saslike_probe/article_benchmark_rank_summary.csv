@@ -1,2 +1,0 @@
-model,error_rate,roc_auc,fit_seconds,error_rank
-PaperRiskSegRaizLogistic,0.07616222664499407,0.9567410360784745,18.02932506666629,1.0
