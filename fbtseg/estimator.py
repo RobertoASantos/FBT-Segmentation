@@ -1141,6 +1141,31 @@ class RiskSegV2(ClassifierMixin, BaseEstimator):
             )
         return pd.DataFrame(rows)
 
+    def plot_tree(self, figsize=(14, 7), ax=None, **kwargs):
+        """Renderiza a árvore de segmentação graficamente (matplotlib).
+
+        Requer matplotlib instalado::
+
+            pip install matplotlib
+
+        Parameters
+        ----------
+        figsize : tupla (largura, altura) em polegadas.
+        ax : eixo matplotlib existente (cria figura nova se None).
+        **kwargs : repassados a :func:`fbtseg.plot.plot_tree`.
+
+        Returns
+        -------
+        fig : ``matplotlib.figure.Figure``
+
+        Exemplo::
+
+            fig = model.plot_tree(figsize=(12, 6))
+            fig.savefig("arvore.png", dpi=150, bbox_inches="tight")
+        """
+        from .plot import plot_tree as _plot_tree
+        return _plot_tree(self, figsize=figsize, ax=ax, **kwargs)
+
     def get_summary(self) -> dict:
         """Resumo agregado da árvore (mapeado à terminologia da tese)."""
         check_is_fitted(self, "is_fitted_")

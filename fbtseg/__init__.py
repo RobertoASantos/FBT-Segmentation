@@ -24,6 +24,7 @@ Importacoes principais:
 """
 
 from .base_learners import LinearProbabilityClassifier
+from .plot import plot_tree, plot_model_tree
 from .combiners import MarginalOddsCombiner, StackingCombiner, build_combiner
 from .datasets import DatasetSpec, article_specs, get_spec, load_article_dataset
 from .estimator import (
@@ -39,7 +40,7 @@ from .views import ModelView, SegView
 # Alias publico (FBTSeg = nome do paper; RiskSegV2 = nome herdado da V2)
 FBTSeg = RiskSegV2
 
-__version__ = "0.2.0"
+__version__ = "0.2.2"
 
 __all__ = [
     "FBTSeg",
@@ -64,5 +65,7 @@ __all__ = [
     "collect_nodes",
     "route_observations",
     "route_pair_parent",
+    "plot_tree",
+    "plot_model_tree",
     "__version__",
 ]
