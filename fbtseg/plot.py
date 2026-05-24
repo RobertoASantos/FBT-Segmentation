@@ -51,13 +51,13 @@ def plot_model_tree(model, max_chars: int = 80) -> str:
 
 def plot_tree(
     model,
-    figsize: tuple[float, float] = (14, 7),
+    figsize: tuple[float, float] | None = None,
     ax=None,
     node_width: float = 3.2,
     node_height: float = 0.9,
     h_gap: float = 0.5,
     v_gap: float = 1.8,
-    fontsize: int = 8,
+    fontsize: int | None = None,
     color_split: str = "#4C72B0",
     color_leaf: str = "#55A868",
     color_edge: str = "#555555",
@@ -69,11 +69,14 @@ def plot_tree(
     ----------
     model : FBTSeg treinado.
     figsize : tamanho da figura (largura, altura) em polegadas.
+        Se ``None``, calculado automaticamente pelo número de folhas e
+        profundidade da árvore.
     ax : eixo matplotlib existente (cria figura nova se None).
     node_width, node_height : dimensões das caixas dos nós.
     h_gap : espaço horizontal mínimo entre caixas irmãs.
     v_gap : espaço vertical entre níveis da árvore.
-    fontsize : tamanho da fonte dentro das caixas.
+    fontsize : tamanho da fonte dentro das caixas. Se ``None``, calculado
+        adaptativamente — árvores maiores recebem fonte menor.
     color_split : cor das caixas de nós internos (splits).
     color_leaf : cor das caixas de folhas.
     color_edge : cor das arestas.
@@ -96,7 +99,16 @@ def plot_tree(
     from sklearn.utils.validation import check_is_fitted
     check_is_fitted(model, "is_fitted_")
 
-    root = model.root_
+    root      = model.root_
+    n_leaves  = len(model.leaves_)
+    max_depth = max(n.depth for n in model.nodes_)
+
+    # ------------------------------------------------------------------ #
+    # Fontsize adaptativo: árvores maiores recebem fonte menor             #
+    # ------------------------------------------------------------------ #
+    if fontsize is None:
+        # 8 pt para ≤4 folhas, reduz 1 pt a cada 2 folhas extras, mín. 5
+        fontsize = max(5, 8 - max(0, (n_leaves - 4) // 2))
 
     # ------------------------------------------------------------------ #
     # 1. Layout: atribui posições (x, y) a cada nó                        #
@@ -125,6 +137,11 @@ def plot_tree(
     # ------------------------------------------------------------------ #
 
     if ax is None:
+        if figsize is None:
+            # Largura proporcional às folhas, altura proporcional à profundidade
+            fig_w = max(10.0, n_leaves * (node_width + h_gap) * 0.65)
+            fig_h = max(5.0, (max_depth + 1) * v_gap * 0.55)
+            figsize = (fig_w, fig_h)
         fig, ax = plt.subplots(figsize=figsize)
     else:
         fig = ax.get_figure()
@@ -228,11 +245,9 @@ def plot_tree(
     # ------------------------------------------------------------------ #
 
     if title is None:
-        n_leaves = len(model.leaves_)
-        max_d = max(n.depth for n in model.nodes_)
         title = (
             f"FBTSeg — árvore de segmentação  "
-            f"(prof. máx={max_d}, folhas={n_leaves}, "
+            f"(prof. máx={max_depth}, folhas={n_leaves}, "
             f"métrica={model.metric})"
         )
     ax.set_title(title, fontsize=fontsize + 2, pad=10)
