@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [0.2.1] - 2026-05-23
+### Fixed
+- `_internal_train_val_split`: evita `ValueError` do `StratifiedShuffleSplit`
+  quando alguma classe tem apenas 1 membro num nó (datasets pequenos ou com
+  `max_depth >= 3`). Cai em split aleatório nesses casos.
+
 ## [0.2.0] - 2026-05-23
 
 ### Rebranded para `fbtseg`

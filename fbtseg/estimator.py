@@ -1036,7 +1036,16 @@ class RiskSegV2(ClassifierMixin, BaseEstimator):
         n = y.size
         n_val = max(2, int(np.round(n * self.validation_fraction)))
         n_val = min(n - 2, n_val)
-        if n_val < 1 or np.unique(y).size < 2:
+        # Cai em split aleatório se: não há validação suficiente, apenas uma
+        # classe presente, ou alguma classe tem menos de 2 membros (o que faria
+        # o StratifiedShuffleSplit falhar com ValueError).
+        classes, counts = np.unique(y, return_counts=True)
+        use_random = (
+            n_val < 1
+            or classes.size < 2
+            or int(counts.min()) < 2  # <- guarda contra nós degenerados
+        )
+        if use_random:
             order = rng.permutation(n)
             return order[: max(1, n - n_val)], order[max(1, n - n_val) :]
         sss = StratifiedShuffleSplit(
